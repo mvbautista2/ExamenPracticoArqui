@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>ec.edu.espe.arqsoftware</groupId>
-	<artifactId>Examen3P</artifactId>
+	<artifactId>Examen2P</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Examen3P</name>
+	<name>Examen2P</name>
 	<description>Examen Tercer Parcial Bautista Valentina</description>
 	<properties>
 		<java.version>11</java.version>
