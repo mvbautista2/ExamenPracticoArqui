@@ -75,5 +75,6 @@ public class CursoServiceTest {
         } catch (Exception e) {
             Logger.getLogger(CursoServiceTest.class.getName()).log(Level.SEVERE, null, e);
         }
+    }
     
 }
