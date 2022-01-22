@@ -5,11 +5,22 @@
  */
 package ec.edu.espe.arqsoftware.Examen3P.service;
 
+import ec.edu.espe.arqsoftware.Examen3P.dao.CursoRepository;
 import ec.edu.espe.arqsoftware.Examen3P.model.Curso;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import static org.mockito.Mockito.when;
 
 /**
  *
@@ -17,11 +28,27 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class CursoServiceTest {
     
-    public CursoServiceTest() {
-    }
+    @Mock
+    private CursoRepository cursoRepository;
     
+    @InjectMocks
+    private CursoService cursoService;
+    
+    private Curso curso;
+    
+    private List<Curso> cursoList;
     @BeforeEach
     public void setUp() {
+        this.curso = new Curso();
+        curso.setArea("Informatica");
+        curso.setCodigo("L01");
+        curso.setCosto(new BigDecimal("1800.50"));
+        curso.setDuracionHoras(5);
+        curso.setFechaInicio(LocalDate.now());
+        curso.setNombre("Data Mining");
+        
+        this.cursoList = new ArrayList<>();
+        this.cursoList.add(curso);
     }
 
     /**
@@ -29,14 +56,12 @@ public class CursoServiceTest {
      */
     @Test
     public void testObtenerPorArea() {
-        System.out.println("obtenerPorArea");
-        String area = "";
-        CursoService instance = null;
-        List<Curso> expResult = null;
-        List<Curso> result = instance.obtenerPorArea(area);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+         when(cursoRepository.findByAreaAndFechaInicioBetween("Info", LocalDate.now(), LocalDate.now())).thenReturn(cursoList);
+        try {
+            Assertions.assertEquals(curso, cursoService.obtenerPorArea("Info"));
+        } catch (Exception e) {
+            Logger.getLogger(CursoServiceTest.class.getName()).log(Level.SEVERE, null, e);
+        }
     }
 
     /**
@@ -44,14 +69,11 @@ public class CursoServiceTest {
      */
     @Test
     public void testObtenerPorNombreSimilar() {
-        System.out.println("obtenerPorNombreSimilar");
-        String nombre = "";
-        CursoService instance = null;
-        List<Curso> expResult = null;
-        List<Curso> result = instance.obtenerPorNombreSimilar(nombre);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+         when(cursoRepository.findByNombreLikeAndFechaInicioBetween("Data Mining", LocalDate.now(), LocalDate.now())).thenReturn(cursoList);
+        try {
+            Assertions.assertEquals(curso, cursoService.obtenerPorNombreSimilar("Data Mining"));
+        } catch (Exception e) {
+            Logger.getLogger(CursoServiceTest.class.getName()).log(Level.SEVERE, null, e);
+        }
     
 }

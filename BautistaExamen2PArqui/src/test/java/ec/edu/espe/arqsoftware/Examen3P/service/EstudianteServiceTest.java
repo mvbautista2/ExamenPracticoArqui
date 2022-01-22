@@ -8,10 +8,12 @@ package ec.edu.espe.arqsoftware.Examen3P.service;
 import ec.edu.espe.arqsoftware.Examen3P.dao.EstudianteRepository;
 import ec.edu.espe.arqsoftware.Examen3P.model.Estudiante;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -20,6 +22,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 /**
@@ -57,14 +60,12 @@ public class EstudianteServiceTest {
      */
     @Test
     public void testListarPorCorreoElectronico() {
-        System.out.println("listarPorCorreoElectronico");
-        String correoElectronico = "";
-        EstudianteService instance = null;
-        List<Estudiante> expResult = null;
-        List<Estudiante> result = instance.listarPorCorreoElectronico(correoElectronico);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+         when(estudianteRepo.findByCorreoElectronico("valentina@hotmail.com")).thenReturn(estudianteList);
+        try {
+            Assertions.assertEquals(estudiante, estudianteService.listarPorCorreoElectronico("valentina@hotmail.com"));
+        } catch (Exception e) {
+            Logger.getLogger(EstudianteServiceTest.class.getName()).log(Level.SEVERE, null, e);
+        }
     }
 
     /**
